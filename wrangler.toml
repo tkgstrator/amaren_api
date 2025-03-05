@@ -1,7 +1,7 @@
-name = "amaren_api"
-compatibility_date = "2024-07-22"
+name = "amaren-api"
+compatibility_date = "2024-09-23"
 send_metrics = true
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = ["nodejs_compat_v2"]
 logpush = true
 
 # Cloudflare Workers R2 buckets

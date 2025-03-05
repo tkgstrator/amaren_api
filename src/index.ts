@@ -1,6 +1,6 @@
 import { OpenAPIHono as Hono } from '@hono/zod-openapi'
 import { apiReference } from '@scalar/hono-api-reference'
-import dayjs from 'dayjs'
+import * as dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
@@ -21,7 +21,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(customParseFormat)
-dayjs.tz.setDefault('Asia/Tokyo')
+// dayjs.tz.setDefault('Asia/Tokyo')
 
 app.use(logger())
 app.use(csrf())
