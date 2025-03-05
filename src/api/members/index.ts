@@ -31,13 +31,6 @@ app.openapi(
     }
   }),
   async (c) => {
-    try {
-      const members = await KV.MEMBERS.get(c.env)
-      return c.json(members)
-    } catch (error) {
-      c.executionCtx.waitUntil(update_cache(c.env, c.executionCtx as ExecutionContext))
-    }
-
     return c.json(await KV.MEMBERS.get(c.env))
   }
 )
