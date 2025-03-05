@@ -16,12 +16,12 @@ import type { Bindings } from './utils/bindings'
 import { reference, specification } from './utils/docs'
 import { scheduled } from './utils/handler'
 
-const app = new Hono<{ Bindings: Bindings }>()
-
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(customParseFormat)
-// dayjs.tz.setDefault('Asia/Tokyo')
+dayjs.tz.setDefault('Asia/Tokyo')
+
+const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(logger())
 app.use(csrf())

@@ -1,9 +1,17 @@
 import { Members } from '@/models/member.dto'
 import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import type { Context } from 'hono'
 import { HTTPException } from 'hono/http-exception'
 import type { JSONValue } from 'hono/utils/types'
 import type { Bindings } from './bindings'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(customParseFormat)
+dayjs.tz.setDefault('Asia/Tokyo')
 
 export namespace KV {
   export namespace MEMBERS {
