@@ -25,22 +25,24 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(logger())
 app.use(csrf())
-// app.use(
-//   '*',
-//   cache({
-//     cacheName: 'default',
-//     cacheControl: 'public, max-age=300'
-//   })
-// )
+app.use(
+  '*',
+  cache({
+    cacheName: 'default',
+    cacheControl: 'public, max-age=300'
+  })
+)
 app.use('*', cors())
-// app.use(compress())
+app.use(compress({ encoding: 'deflate' }))
 app.doc('/specification', specification)
 app.get('/docs', apiReference(reference))
 app.onError((err, c) => {
   if (err instanceof HTTPException) {
+    console.error(err)
     return c.json({ message: err.message }, err.status)
   }
   if (err instanceof ZodError) {
+    console.error(err)
     return c.json({ message: JSON.parse(err.message), description: err.cause }, 400)
   }
   console.error(err)
