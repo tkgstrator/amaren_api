@@ -4,6 +4,7 @@ import type { Bindings } from '@/utils/bindings'
 import { KV } from '@/utils/kv'
 import { NotFoundResponse } from '@/utils/response'
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi'
+import type { JSONValue } from 'hono/utils/types'
 
 export const app = new OpenAPIHono<{ Bindings: Bindings }>()
 
@@ -28,7 +29,9 @@ app.openapi(
     }
   }),
   async (c) => {
-    // @ts-ignore
-    return c.json(await KV.MEMBERS.get(c, sub))
+    const members: JSONValue = await (
+      await fetch('http://amaren.e5.valueserver.jp/Rsys/php/amalen.fetchAllData.php')
+    ).json()
+    return c.json(members)
   }
 )
