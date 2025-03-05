@@ -4,6 +4,9 @@ import { last } from 'lodash'
 export const Member = z.preprocess(
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   (input: any) => {
+    if (input === undefined || input === null) {
+      return null
+    }
     return {
       id: Number.parseInt(input['ID'], 10),
       name: input['氏名'],
