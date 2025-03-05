@@ -1,4 +1,4 @@
-import { Members } from '@/models/member.dto'
+import type { Members } from '@/models/member.dto'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import timezone from 'dayjs/plugin/timezone'
@@ -26,10 +26,10 @@ export namespace KV {
         if (post_cache === null) {
           throw new HTTPException(404, { message: 'Not Found' })
         }
-        return Members.parse(post_cache)
+        return post_cache as Members
       }
       console.info('[CACHE]: HIT', cache)
-      return Members.parse(cache)
+      return cache as Members
     }
 
     export const set = async (env: Bindings, ctx: ExecutionContext, data: Members): Promise<void> => {
