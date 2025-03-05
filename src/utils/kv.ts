@@ -16,7 +16,7 @@ dayjs.tz.setDefault('Asia/Tokyo')
 export namespace KV {
   export namespace MEMBERS {
     const timestamp: string = dayjs().tz('Asia/Tokyo').format('YYYY-MM-DD')
-    export const get = async (env: Bindings, ctx: ExecutionContext): Promise<Members> => {
+    export const get = async (env: Bindings): Promise<Members> => {
       const cache: unknown | null = await env.MEMBERS.get(timestamp, { type: 'json' })
       // キャッシュが存在していなければ一日前のデータを返す
       if (cache === null) {
@@ -28,7 +28,7 @@ export namespace KV {
         }
         return Members.parse(post_cache)
       }
-      console.info('[CACHE]: HIT')
+      console.info('[CACHE]: HIT', cache)
       return Members.parse(cache)
     }
 

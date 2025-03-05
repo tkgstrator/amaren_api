@@ -29,9 +29,6 @@ app.openapi(
     }
   }),
   async (c) => {
-    const members: JSONValue = await (
-      await fetch('http://amaren.e5.valueserver.jp/Rsys/php/amalen.fetchAllData.php')
-    ).json()
-    return c.json(members)
+    return c.json(await KV.MEMBERS.get(c.env))
   }
 )
