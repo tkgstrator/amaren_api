@@ -15,7 +15,7 @@ const update_cache = async (env: Bindings, ctx: ExecutionContext): Promise<void>
 
 export const scheduled = async (event: ScheduledController, env: Bindings, ctx: ExecutionContext): Promise<void> => {
   switch (event.cron) {
-    case '0 0 * * *':
+    case '0 15 * * *':
       ctx.waitUntil(update_cache(env, ctx))
       break
     default:

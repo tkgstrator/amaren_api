@@ -28,7 +28,7 @@ export namespace KV {
         }
         return post_cache as Members
       }
-      console.info('[CACHE]: HIT', cache)
+      console.info('[CACHE]: HIT')
       return cache as Members
     }
 
