@@ -5,11 +5,13 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { cache } from 'hono/cache'
+import { compress } from 'hono/compress'
 import { cors } from 'hono/cors'
 import { csrf } from 'hono/csrf'
 import { HTTPException } from 'hono/http-exception'
 import { logger } from 'hono/logger'
 import { ZodError } from 'zod'
+import { app as members } from './api/members'
 import type { Bindings } from './utils/bindings'
 import { reference, specification } from './utils/docs'
 import { scheduled } from './utils/handler'
@@ -23,7 +25,15 @@ dayjs.tz.setDefault('Asia/Tokyo')
 
 app.use(logger())
 app.use(csrf())
+// app.use(
+//   '*',
+//   cache({
+//     cacheName: 'default',
+//     cacheControl: 'public, max-age=300'
+//   })
+// )
 app.use('*', cors())
+// app.use(compress())
 app.doc('/specification', specification)
 app.get('/docs', apiReference(reference))
 app.onError((err, c) => {
@@ -37,6 +47,7 @@ app.onError((err, c) => {
   return c.json({ message: err.message }, 500)
 })
 app.notFound((c) => c.redirect('/docs'))
+app.route('/members', members)
 
 export default {
   port: 3000,
