@@ -6,7 +6,7 @@ import utc from 'dayjs/plugin/utc'
 import type { Bindings } from './bindings'
 import { KV } from './kv'
 
-const update_cache = async (env: Bindings, ctx: ExecutionContext): Promise<void> => {
+export const update_cache = async (env: Bindings, ctx: ExecutionContext): Promise<void> => {
   const data = await (await fetch(new URL(env.API_URL).href)).json()
   const members: Members = Members.parse(data)
   await KV.MEMBERS.set(env, ctx, members)
