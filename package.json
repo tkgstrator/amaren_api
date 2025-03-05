@@ -11,10 +11,11 @@
     }
   },
   "scripts": {
+    "deploy": "bunx wrangler deploy",
     "dev": "wrangler dev src/index.ts --test-scheduled",
-    "start:prod": "bun dist/index.js",
     "prebuild": "rimraf dist",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start:prod": "bun dist/index.js"
   },
   "dependencies": {
     "dayjs": "^1.11.13",
