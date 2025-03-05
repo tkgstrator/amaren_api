@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+# bun test
+bun lint-staged
