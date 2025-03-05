@@ -19,7 +19,6 @@ export const scheduled = async (event: ScheduledController, env: Bindings, ctx: 
       ctx.waitUntil(update_cache(env, ctx))
       break
     default:
-      ctx.waitUntil(update_cache(env, ctx))
       break
   }
 }
