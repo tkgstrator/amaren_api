@@ -24,7 +24,7 @@ dayjs.tz.setDefault('Asia/Tokyo')
 const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(logger())
-app.use(csrf())
+// app.use(csrf())
 app.use(
   '*',
   cache({
@@ -32,12 +32,7 @@ app.use(
     cacheControl: 'public, max-age=300'
   })
 )
-app.use(
-  '*',
-  cors({
-    origin: ['localhost:5173']
-  })
-)
+app.use(cors({ origin: '*' }))
 app.use(compress({ encoding: 'deflate' }))
 app.doc('/specification', specification)
 app.get('/docs', apiReference(reference))
