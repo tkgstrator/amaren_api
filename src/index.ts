@@ -25,12 +25,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use(logger())
 // app.use(csrf())
-app.use(
-  '*',
-  cors({
-    origin: ['http://localhost:5173']
-  })
-)
+app.use('*', cors())
 app.use(
   '*',
   cache({
