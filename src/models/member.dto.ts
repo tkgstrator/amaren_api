@@ -13,6 +13,8 @@ export const Member = z.preprocess(
       furigana: input['フリガナ'],
       registered: input['アマレン'] === 'Yes',
       games: Number.parseInt(input['対局数'], 10),
+      win: Number.parseInt(input['勝ち数'], 10),
+      lose: Number.parseInt(input['対局数'], 10) - Number.parseInt(input['勝ち数'], 10),
       rate: Number.parseInt(input['レート'], 10),
       rate_history: [
         Number.parseInt(input['2回前レート'], 10),
@@ -37,6 +39,8 @@ export const Member = z.preprocess(
     furigana: z.string(),
     registered: z.boolean(),
     games: z.number().int().min(0),
+    win: z.number().int().min(0),
+    lose: z.number().int(),
     rate: z.number().int().min(0),
     rate_history: z.array(z.number().int()),
     updated_at: z.string(),
