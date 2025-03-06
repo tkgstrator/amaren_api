@@ -32,8 +32,16 @@ app.use(
     cacheControl: 'public, max-age=300'
   })
 )
-app.use('*', cors())
-app.use(compress({ encoding: 'deflate' }))
+app.use(
+  '*',
+  cors({
+    origin: ['http://localhost:5173'],
+    credentials: true,
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    maxAge: 86400
+  })
+)
+// app.use(compress({ encoding: 'deflate' }))
 app.doc('/specification', specification)
 app.get('/docs', apiReference(reference))
 app.onError((err, c) => {
