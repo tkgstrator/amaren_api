@@ -27,18 +27,15 @@ app.use(logger())
 // app.use(csrf())
 app.use(
   '*',
-  cache({
-    cacheName: 'default',
-    cacheControl: 'public, max-age=300'
+  cors({
+    origin: ['http://localhost:5173']
   })
 )
 app.use(
   '*',
-  cors({
-    origin: ['http://localhost:5173'],
-    credentials: true,
-    allowMethods: ['POST', 'GET', 'OPTIONS'],
-    maxAge: 86400
+  cache({
+    cacheName: 'default',
+    cacheControl: 'public, max-age=300'
   })
 )
 // app.use(compress({ encoding: 'deflate' }))
