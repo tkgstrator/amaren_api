@@ -32,7 +32,12 @@ app.use(
     cacheControl: 'public, max-age=300'
   })
 )
-app.use('*', cors())
+app.use(
+  '*',
+  cors({
+    origin: ['localhost:5173']
+  })
+)
 app.use(compress({ encoding: 'deflate' }))
 app.doc('/specification', specification)
 app.get('/docs', apiReference(reference))
