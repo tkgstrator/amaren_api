@@ -34,3 +34,29 @@ app.openapi(
     return c.json(await KV.MEMBERS.get(c.env))
   }
 )
+
+app.openapi(
+  createRoute({
+    method: HTTPMethod.PATCH,
+    path: '/',
+    tags: ['ユーザー'],
+    summary: '取得',
+    description: 'ユーザー一覧を更新します。',
+    request: {},
+    responses: {
+      200: {
+        content: {
+          'application/json': {
+            schema: z.array(Member).openapi({ description: 'ユーザー情報' })
+          }
+        },
+        description: 'ユーザー情報'
+      },
+      ...NotFoundResponse
+    }
+  }),
+  async (c) => {
+    await update_cache(c.env, c.executionCtx as ExecutionContext)
+    return new Response(null, { status: 204 })
+  }
+)
